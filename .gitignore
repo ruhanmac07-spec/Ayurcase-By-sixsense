@@ -1,0 +1,5 @@
+node_modules
+target/
+.next/
+*.zip
+.DS_Store

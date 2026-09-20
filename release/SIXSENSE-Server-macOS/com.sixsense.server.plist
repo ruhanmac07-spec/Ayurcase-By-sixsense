@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.sixsense.server</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/Shared/SIXSENSE/bin/sixsense-server</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/Users/Shared/SIXSENSE/server.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/Shared/SIXSENSE/server.log</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>SIXSENSE_DATA_DIR</key>
+        <string>/Users/Shared/SIXSENSE</string>
+        <key>RUST_LOG</key>
+        <string>info</string>
+    </dict>
+</dict>
+</plist>

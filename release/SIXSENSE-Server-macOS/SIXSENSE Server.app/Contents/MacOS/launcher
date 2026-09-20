@@ -1,0 +1,62 @@
+#!/bin/bash
+# SIXSENSE Server App Launcher
+# Provides zero-terminal operation on macOS.
+
+set -e
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BINARY="$DIR/sixsense-server"
+DATA_DIR="/Users/Shared/SIXSENSE"
+LOG_FILE="$DATA_DIR/server.log"
+PID_FILE="$DATA_DIR/server.pid"
+CONSOLE_URL="http://localhost:8443/server-manager"
+
+# Ensure data directory exists
+mkdir -p "$DATA_DIR"
+chmod 775 "$DATA_DIR" 2>/dev/null || true
+
+# Check if server is already running on port 8443
+RUNNING=false
+if curl -s -m 2 http://localhost:8443/api/v1/health > /dev/null 2>&1; then
+    RUNNING=true
+fi
+
+if [ "$RUNNING" = false ]; then
+    # If a stale pid file exists, clean up
+    if [ -f "$PID_FILE" ]; then
+        STALE_PID=$(cat "$PID_FILE")
+        if ! ps -p "$STALE_PID" > /dev/null 2>&1; then
+            rm -f "$PID_FILE"
+        fi
+    fi
+
+    # Start the server with SIXSENSE_DATA_DIR set
+    export SIXSENSE_DATA_DIR="$DATA_DIR"
+    export RUST_LOG="info"
+    
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting SIXSENSE Server from $BINARY..." >> "$LOG_FILE"
+    nohup "$BINARY" >> "$LOG_FILE" 2>&1 &
+    NEW_PID=$!
+    echo "$NEW_PID" > "$PID_FILE"
+
+    # Wait up to 5 seconds for health check
+    for i in {1..10}; do
+        if curl -s -m 1 http://localhost:8443/api/v1/health > /dev/null 2>&1; then
+            RUNNING=true
+            break
+        fi
+        sleep 0.5
+    done
+fi
+
+# Send macOS user notification
+if [ "$RUNNING" = true ]; then
+    osascript -e 'display notification "SIXSENSE Server is running on port 8443. Management Console opening..." with title "SIXSENSE Clinical Server"' 2>/dev/null || true
+else
+    osascript -e 'display alert "SIXSENSE Server Warning" message "The server was started but did not respond on port 8443 immediately. Please check /Users/Shared/SIXSENSE/server.log for details."' 2>/dev/null || true
+fi
+
+# Open management console in default browser
+open "$CONSOLE_URL"
+
+exit 0

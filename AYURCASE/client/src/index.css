@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-primary: #1b4332;
+    --brand-medium: #2d6a4f;
+    --brand-sage: #52b788;
+    --brand-leaf: #74c69d;
+    --brand-tint: #d8f3dc;
+    --surface-base: #f8f9fa;
+    --surface-panel: #ffffff;
+    --charcoal-text: #191f1d;
+  }
+
+  body {
+    background-color: #f8f9fa;
+    color: #191f1d;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Compact clinical desktop scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+  /* Accessible, restrained green-accented visible focus for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--brand-medium);
+    outline-offset: 1.5px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-brand-primary hover:bg-brand-medium active:bg-brand-dark rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand-sage focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-charcoal-medium bg-white hover:bg-surface-subtle border border-gray-300 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-status-error hover:bg-red-800 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none shadow-sm;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-3 py-1.5 text-sm font-medium text-charcoal-medium hover:bg-gray-100 hover:text-charcoal rounded-md transition-colors;
+  }
+
+  .input-base {
+    @apply w-full px-3 py-2 text-sm bg-white border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-brand-sage focus:border-brand-sage disabled:bg-gray-50 disabled:text-gray-500 transition-colors;
+  }
+
+  .badge-neutral {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800;
+  }
+
+  .badge-success {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200;
+  }
+
+  .badge-danger {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-rose-50 text-rose-800 border border-rose-200;
+  }
+}

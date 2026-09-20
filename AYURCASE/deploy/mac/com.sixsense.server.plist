@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.sixsense.server</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/sixsense_server</string>
+    </array>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>SIXSENSE_HOST</key>
+        <string>0.0.0.0</string>
+        <key>SIXSENSE_PORT</key>
+        <string>8443</string>
+        <key>SIXSENSE_DATA_DIR</key>
+        <string>/Users/Shared/SIXSENSE</string>
+        <key>RUST_LOG</key>
+        <string>info,sixsense_server=debug</string>
+    </dict>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+        <key>Crashed</key>
+        <true/>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/Shared/SIXSENSE/logs/server.stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/Shared/SIXSENSE/logs/server.stderr.log</string>
+    <key>ProcessType</key>
+    <string>Interactive</string>
+</dict>
+</plist>

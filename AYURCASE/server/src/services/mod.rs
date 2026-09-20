@@ -1,0 +1,23 @@
+pub mod auth_service;
+pub mod consultation_service;
+pub mod patient_service;
+pub mod prescription_service;
+pub mod queue_service;
+pub mod storage_service;
+pub mod user_service;
+pub mod visit_service;
+pub mod medicine_service;
+pub mod workspace_service;
+pub mod intelligence_service;
+
+pub use auth_service::AuthService;
+pub use consultation_service::ConsultationService;
+pub use medicine_service::MedicineService;
+pub use patient_service::PatientService;
+pub use prescription_service::PrescriptionService;
+pub use queue_service::QueueService;
+pub use storage_service::PatientStorageService;
+pub use user_service::UserService;
+pub use visit_service::VisitService;
+pub use workspace_service::WorkspaceService;
+pub use intelligence_service::IntelligenceService;
